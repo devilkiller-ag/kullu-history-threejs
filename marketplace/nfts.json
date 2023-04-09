@@ -1,0 +1,26 @@
+[
+  {
+    "1": {
+      "image": "./assets/kullu_nft_images/one.jpg",
+      "name": "Kullu Village"
+    }
+  },
+  {
+    "2": {
+      "image": "./assets/kullu_nft_images/two.jpg",
+      "name": "Kathkudi"
+    }
+  },
+  {
+    "3": {
+      "image": "./assets/kullu_nft_images/three.jpg",
+      "name": "Kullu  Dushehra"
+    }
+  },
+  {
+    "4": {
+      "image": "./assets/kullu_nft_images/four.png",
+      "name": "Village Gate"
+    }
+  }
+]
