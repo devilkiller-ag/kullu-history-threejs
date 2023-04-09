@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expectro NFT Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7/web3.min.js"
+        integrity="sha512-yAmmVkOXqtDZRaueLdmLwMB67JtaRtjFzQGiAiJKvLiFlDvq4Tzm5R6uLcOMyvPRQlXpYHdYxc5IbiCwuquhUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <center>
+        <h1>Expectro NFT Marketplace</h1>
+        <p id="totalNFTs"></p>
+        <div>
+            <button class="button" onclick="MintNFT()">Mint NFT</button>
+        </div>
+        <hr>
+        <div>
+            <button class="button" onclick="GetNFT()">Get NFT</button>
+            <input id="tokenId" placeholder="Type tokenId">
+        </div>
+        <div class="imgdiv">
+            <img height=100 id="nftpng" src="" />
+            <p id="nftname"></p>
+            <p id="nftowner"></p>
+        </div>
+        <hr>
+        <div>
+            <button class="button" onclick="TransferNFT()">Transfer NFT</button>
+            <input id="toAddress" placeholder="Transfer address">
+
+        </div>
+    </center>
+    <script src="contract.js"></script>
+    <script>
+        // var cors = require('cors')
+        var accounts;
+        var myContract;
+        // app.use(cors())
+        async function CheckMetamaskConnection() {
+            if (window.ethereum) {
+                try {
+                    web3 = new Web3(window.ethereum);
+                    accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                    console.log("Done!")
+                    return true;
+                } catch (err) {
+                    console.log(err)
+                    return false;
+                }
+            } else {
+                console.log("Metamask Not Found!")
+                return false;
+            }
+        }
+
+        $(document).ready(async function () {
+
+            var IsMetaMask = await CheckMetamaskConnection();
+
+            if (IsMetaMask) {
+                console.log("IsMetaMask = true");
+                myContract = await new web3.eth.Contract(SmartContractABI, SmartContractAddress);
+                console.log(myContract);
+                totalNFTsMinted();
+            } else {
+                alert("Metamask not detected!")
+            }
+
+        })
+
+        async function totalNFTsMinted() {
+            await myContract.methods.currentTokenId().call(function (err, res) {
+                if (!err) {
+                    console.log(res);
+                    document.getElementById("totalNFTs").innerHTML = "Total NFTs Minted : " + res;
+                }
+            })
+        }
+
+        // async function GetNFT() {
+        // function GetNFT() {
+        //     var tokenId = document.getElementById("tokenId").value;
+        //     console.log(tokenId);
+        //     // await myContract.methods.tokenURI(tokenId).call(async function (err, res) {
+        //         // if (!err) {
+        //             // console.log(res);
+        //             // JSONResponse = await httpGet(res);
+        //             // JSONResponse = JSON.parse(JSONResponse);
+        //             // console.log(JSONResponse)
+        //             fetch("../nfts_list.json")
+        //                 .then(response => response.json())
+        //                 .then(dat    a => console.log(data))
+        //             // document.getElementById("nftpng").src = JSONResponse["image"];
+        //             // document.getElementById("nftname").innerHTML = "Name : " + JSONResponse["name"];
+        //             // getNFTOwner(tokenId);
+        //         // } else {
+        //         //     console.log(err);
+        //         // }
+        //     // })
+
+        //     // fetch(URL)
+        //     // // get the JSON data
+        //     // .then(response => response.json())
+        //     // // use (display) the JSON data
+        //     // .then(data => console.log(data))
+        // }
+        function GetNFT() {
+            var tokenId = document.getElementById("tokenId").value;
+            console.log(tokenId);
+            fetch('nfts.json')
+        .then(function (response) {
+            return response.json();
+            // console.log(response);
+            // console.log(response[0][1].image);
+        })   .then(function (data) {
+            // return response.json();
+            console.log(data);
+            console.log(data[0][1].image);
+            document.getElementById("nftpng").src = data[0][1].image;
+        })       
+        .catch(function (err) {
+            console.log('error: ' + err);
+        });
+        }
+        async function getNFTOwner(_tokenId) {
+            // await myContract.methods.ownerOf(_tokenId).call(function (err, res) {
+            //     if (!err) {
+            //         console.log(res);
+            //         document.getElementById("nftowner").innerHTML = "Owner : " + res;
+            //     }
+            // })
+        }
+
+        async function MintNFT(_tokenId) {
+            // await myContract.methods.mintNFT().send({ from: accounts[0] }, function (err, res) {
+            //     if (!err) {
+            //         console.log(res);
+            //     } else {
+            //         console.log(err);
+            //     }
+            // })
+        }
+
+        async function TransferNFT(_tokenId) {
+            // var toAddress = document.getElementById("toAddress").value;
+            // var tokenId = document.getElementById("tokenId").value;
+            // await myContract.methods.transferFrom(accounts[0], toAddress, tokenId).send({ from: accounts[0] }, function (err, res) {
+            //     if (!err) {
+            //         console.log(res);
+            //     } else {
+            //         console.log(err);
+            //     }
+            // })
+        }
+
+        function httpGet(theUrl) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false); // false for synchronous request
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+
+    </script>
+</body>
+
+</html>
