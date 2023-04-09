@@ -9,6 +9,10 @@
 
 https://docs.google.com/presentation/d/1iPrcY94wAgK2HserieUS3FcQ12zlf49Q/edit?usp=drivesdk&ouid=111474293853795061966&rtpof=true&sd=true
 
+#deployed at REPLIT 😊
+
+https://replit.com/@Comreton/History-VR?v=1
+
 
 <br>
 
@@ -17,7 +21,7 @@ https://docs.google.com/presentation/d/1iPrcY94wAgK2HserieUS3FcQ12zlf49Q/edit?us
 
 </span> 
 
-<span style="font-family: 'Arial, Helvetica, sans-serif';"> Blender 3D, HTML, Javascript, 3.JS, React JS, Solidity, Babel, Tailwind CSS
+<span style="font-family: 'Arial, Helvetica, sans-serif';"> Blender 3D, HTML, Javascript, Three.JS, React JS, Solidity, Babel, Tailwind CSS
  </span>
  
 
